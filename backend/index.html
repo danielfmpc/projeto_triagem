@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <title>Triagem</title>
+</head>
+<div class="userlist">
+  <ul id="users">
+  </ul>
+</div>
+<body>
+  <script>
+    const socket = io('http://localhost:3000');
+    socket.on('greeting', (data)=>{
+      console.log(data);
+      // var node = document.creatrs").appendChild(node);
+      var user = document.createElement('li');
+      var psn = data.msg + data.user;   
+      var textnode = document.createTextNode(psn);
+      user.appendChild(textnode);
+      document.getElementById('users').appendChild(user);
+    });
+  </script>
+</body>
+</html>
