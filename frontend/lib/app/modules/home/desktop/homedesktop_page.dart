@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+final String assetName = 'assets/images/logo.svg';
 
 class HomeDesktopPage extends StatefulWidget {
   @override
@@ -10,6 +12,12 @@ class HomeDesktopPage extends StatefulWidget {
 
 class _HomeDesktopPageState extends State<HomeDesktopPage> {
   String _users = "";
+
+  final Widget svg = SvgPicture.asset(
+    assetName,
+    semanticsLabel: 'Acme Logo'
+  );
+
   @override
   void initState() {
 
@@ -32,11 +40,44 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
     super.initState();
 
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomeDesk socket.io'),
+        // backgroundColor: Color.fromRGBO(4, 118, 73, 0.5),
+        backgroundColor: Colors.white,
+        leading: svg,
+        elevation: 2,
+        actions: [
+          Row(
+            children: [
+              Text(
+                'TRIAGEM',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20
+                ),
+              ),
+              Icon(
+                Icons.computer_outlined,
+                size: 50,
+                color: Colors.black,
+                
+              ),
+            ],
+          )
+          
+        ],
+        
+        leadingWidth: 180,
+        title: Text(
+          'ATENDIMENTO',
+          style: TextStyle(
+            color: Colors.black
+          ),
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
