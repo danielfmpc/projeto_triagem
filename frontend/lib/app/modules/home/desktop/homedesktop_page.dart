@@ -11,7 +11,10 @@ class HomeDesktopPage extends StatefulWidget {
 
 
 class _HomeDesktopPageState extends State<HomeDesktopPage> {
-  String _users = "";
+  IO.Socket socket;
+  int _triagem;
+  
+  String _status = "";
 
   final Widget svg = SvgPicture.asset(
     assetName,
@@ -22,23 +25,22 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
   void initState() {
 
     // Dart client
-    IO.Socket socket = IO.io('http://192.168.20.7:3000', <String, dynamic>{
+    print("[webscoket][iniciado]");
+    socket = IO.io('http://192.168.20.7:3000', <String, dynamic>{
       'transports': ['websocket'],
     });
-    // socket.on('connection', (_) {
-    //  print('connect');
-    //  socket.emit('msg', 'test');
-    // });
+    print("[webscoket][recebendo data]");
     socket.on('greeting', (data) {
-      print(data);
+      print("[data][servidor]$data");
       setState(() {
-        _users += " "+data['user'];
+        _triagem = data['triagem'];
+        _status = data['status'];
       });
     });
-    socket.on('disconnect', (_) => print('disconnect'));
+    socket.on('disconnect', (_) => print('disconnect'));    
+    print("[webscoket][conectado]");  
     socket.connect();
     super.initState();
-
   }
   
   @override
@@ -83,11 +85,15 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('List Users'),
+            Text('Testando evento'),
             Text(
-              '$_users',
+              _triagem != null ?'TRIAGEM: $_triagem' : '',
               style: Theme.of(context).textTheme.headline4,
-            )
+            ),
+            Text(
+              _status.isNotEmpty ?'STATUS: $_status':'',
+              style: Theme.of(context).textTheme.headline4,
+            ),
           ],
         ),
       ),
