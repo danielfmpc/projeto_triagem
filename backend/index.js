@@ -4,14 +4,11 @@ var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 
 
-// app.get('/', (request, response) =>{
-//   response.sendFile(__dirname + '/index.html');
-// });
-
 io.on('connection', (socket)=>{
-  console.log('Client connect: ' + socket.id);
-    socket.broadcast.emit('greeting',{msg:'welcome', user: "user_" + socket.id})
-    socket.emit('greeting',{msg:'welcome', user: "user_" + socket.id})
+    socket.on('greeting', (msg) =>{
+      console.log("[message]: " + msg);
+      io.emit('greeting',msg);
+    });
 });
 
 // io.on('connection', (socket)=>{
