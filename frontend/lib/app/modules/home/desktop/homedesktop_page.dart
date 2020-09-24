@@ -26,7 +26,7 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
 
     // Dart client
     print("[webscoket][iniciado]");
-    socket = IO.io('http://192.168.20.7:3000', <String, dynamic>{
+    socket = IO.io('http://192.168.20.9:3000', <String, dynamic>{
       'transports': ['websocket'],
     });
     print("[webscoket][recebendo data]");
@@ -37,7 +37,7 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
         _status = data['status'];
       });
     });
-    socket.on('disconnect', (_) => print('disconnect'));    
+    socket.on('[webscoket][disconnect]', (_) => print('disconnect'));    
     print("[webscoket][conectado]");  
     socket.connect();
     super.initState();
