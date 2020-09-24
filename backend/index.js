@@ -6,7 +6,6 @@ var port = process.env.PORT || 3000;
 
 io.on('connection', (socket)=>{
     socket.on('greeting', (msg) =>{
-      console.log("[message]: " + msg);
       io.emit('greeting',msg);
     });
 });

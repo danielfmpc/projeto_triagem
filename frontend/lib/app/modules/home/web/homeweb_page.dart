@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-final String assetName = 'assets/images/logo.svg';
 
 class HomeWebPage extends StatefulWidget {
   @override
@@ -10,18 +8,12 @@ class HomeWebPage extends StatefulWidget {
 
 class _HomeWebPageState extends State<HomeWebPage> {
   IO.Socket socket;
-  int dropdownValue = 1;
-  int _triagens;
-
-  final Widget svg = SvgPicture.asset(
-    assetName,
-    semanticsLabel: 'Acme Logo'
-  );
+  String dropdownValue = "01";
 
   @override
   void initState() {
     // Dart client
-    socket = IO.io('http://192.168.20.9:3000', <String, dynamic>{
+    socket = IO.io('http://192.168.20.237:3000', <String, dynamic>{
       'transports': ['websocket'],
     });    
     socket.on('ping', (data) => print('[pingando]'));
@@ -32,69 +24,80 @@ class _HomeWebPageState extends State<HomeWebPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(0, 0, 100, 1),
       appBar: AppBar(
-        // title: Text(
-        //   'ATENDIMENTO',
-        //   style: TextStyle(
-        //     color: Colors.black
-        //   ),
-        // ),
-        // centerTitle: true,
-        // backgroundColor: Colors.white,
-        // elevation: 2,
-        leading: SvgPicture.asset(
-    assetName,
-    semanticsLabel: 'Acme Logo'
-  ),
-        // actions: [
-        //   Row(
-        //     children: [
-        //       Text(
-        //         'TRIAGEM',
-        //         style: TextStyle(
-        //           color: Colors.black,
-        //           fontSize: 20
-        //         ),
-        //       ),
-        //       Icon(
-        //         Icons.computer_outlined,
-        //         size: 50,
-        //         color: Colors.black,                
-        //       ),
-        //     ],
-        //   ),
-        // ],
+        // backgroundColor: Color.fromRGBO(4, 118, 73, 0.5),
+        backgroundColor: Colors.white,
+        leading: Image.asset('assets/images/logo.png'),
+        actions: [
+          Row(
+            children: [              
+              Text(
+                'TRIAGEM',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20
+                ),
+              ),
+              Icon(
+                Icons.computer_outlined,
+                size: 50,
+                color: Colors.black,
+              ),
+            ],
+          ),
+        ],        
+        leadingWidth: 180,
+        title: Text(
+          'ATENDIMENTO',
+          style: TextStyle(
+            color: Colors.black
+          ),
+        ),
+        centerTitle: true,
       ),
       
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DropdownButton<int>(
+            Text(
+              'SELECIONE O TERMINAL',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.white
+              ),
+            ),
+            DropdownButton<String>(              
               value: dropdownValue,
+              dropdownColor: Colors.black,
               icon: Icon(Icons.arrow_downward),
               iconSize: 24,
               elevation: 16,
-              style: TextStyle(color: Color.fromRGBO(4, 118, 73, 0.5)),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30
+              ),
               underline: Container(
                 height: 2,
-                color: Color.fromRGBO(4, 118, 73, 0.5),
+                color: Colors.black,
               ),
-              onChanged: (int newValue) {
+              onChanged: (String newValue) {
                 setState(() {
                   dropdownValue = newValue;
                 });
               },
-              items: <int>[1,2,3,4,5,6,7,8,9,10,11,12,13,14]
-                  .map<DropdownMenuItem<int>>((int value) {
-                return DropdownMenuItem<int>(
+              items: <String>[
+                "01","02","03","04","05","06","07","08","09","10","11","12","13","14"]
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value.toString()),
+                  child: Text(value),
                 );
               }).toList(),
             ),            
             RaisedButton(
-              child: Text('Enviar'),
+              child: Text('CHAMAR'),
               onPressed: (){
                 socket.emit('greeting', {"triagem": dropdownValue, "status": "livre"});
               },
