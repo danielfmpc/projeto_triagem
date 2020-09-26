@@ -16,11 +16,21 @@ class _HomeWebPageState extends State<HomeWebPage> {
     socket = IO.io('http://192.168.20.237:3000', <String, dynamic>{
       'transports': ['websocket'],
     });    
-    socket.on('ping', (data) => print('[pingando]'));
-    socket.on('disconnect', (_) => print('disconnect'));
+    
     socket.connect();
     super.initState();
   }
+
+  
+
+  @override
+  void dispose() {
+    socket.on('disconnect', (_) => print('disconnect'));
+    super.dispose();
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
