@@ -35,8 +35,7 @@ dependencies:
     git:
       url: https://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
-  audioplayers: ^0.16.1
-  file_picker: ^2.0.3
+  flutter_audio_desktop: ^0.0.6
 
 dev_dependencies:
   flutter_test:
