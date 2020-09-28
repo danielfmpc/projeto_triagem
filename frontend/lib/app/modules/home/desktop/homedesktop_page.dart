@@ -12,15 +12,16 @@ class HomeDesktopPage extends StatefulWidget {
 
 class _HomeDesktopPageState extends State<HomeDesktopPage> {
   IO.Socket socket;
+  final fileName = 'chamada.mp3';
   String _triagem = "";
   String _status = "";
   AudioPlayer audioPlayer = new AudioPlayer(debug: true);
-  String _textFieldValue = '';
+  String _textFieldValue = ''; 
 
   @override
   void initState() {    
     WindowSizeService().initialize();
-    _textFieldValue = 'F:/flutter/projeto_triagem/frontend/assets/audios/chamada.mp3';
+    _textFieldValue = 'D:/triagem/data/flutter_assets/assets/audios/chamada.mp3';
     
     // Dart client
     print("[webscoket][iniciado]");
@@ -76,7 +77,7 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
             children: [
               Text(
                 'TRIAGEM',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               Icon(
                 Icons.computer_outlined,
@@ -95,7 +96,7 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
       ),
       body: Center(
         child: Column(
-          children: [   
+          children: [           
             Padding(
               padding: const EdgeInsets.only(top: 29, left: 8, right: 8),
               child: Container(
