@@ -13,10 +13,9 @@ class _HomeWebPageState extends State<HomeWebPage> {
   @override
   void initState() {
     // Dart client
-    socket = IO.io('http://192.168.20.237:3000', <String, dynamic>{
+    socket = IO.io('http://192.168.50.237:3000', <String, dynamic>{
       'transports': ['websocket'],
-    });    
-    
+    });        
     socket.connect();
     super.initState();
   }
