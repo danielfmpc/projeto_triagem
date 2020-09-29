@@ -1,4 +1,8 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:frontend/app/modules/home/web/cookie_manager.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class HomeWebPage extends StatefulWidget {
@@ -12,22 +16,27 @@ class _HomeWebPageState extends State<HomeWebPage> {
 
   @override
   void initState() {
+    if(CookieManager.getCookie('triagem').isEmpty){
+      dropdownValue = "01";
+    } else {
+      dropdownValue = CookieManager.getCookie('triagem');
+
+    }
+    
     // Dart client
     socket = IO.io('http://192.168.50.237:3000', <String, dynamic>{
       'transports': ['websocket'],
-    });        
+    });  
+          
     socket.connect();
     super.initState();
-  }
-
-  
+  } 
 
   @override
   void dispose() {
     socket.on('disconnect', (_) => print('disconnect'));
     super.dispose();
   }
-
   
 
   @override
@@ -64,8 +73,7 @@ class _HomeWebPageState extends State<HomeWebPage> {
           ),
         ),
         centerTitle: true,
-      ),
-      
+      ),     
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -77,6 +85,7 @@ class _HomeWebPageState extends State<HomeWebPage> {
                 color: Colors.white
               ),
             ),
+            
             DropdownButton<String>(              
               value: dropdownValue,
               dropdownColor: Colors.black,
@@ -94,8 +103,10 @@ class _HomeWebPageState extends State<HomeWebPage> {
               onChanged: (String newValue) {
                 setState(() {
                   dropdownValue = newValue;
+                  CookieManager.addToCookie('triagem', dropdownValue);                  
                 });
               },
+
               items: <String>[
                 "01","02","03","04","05","06","07","08","09","10","11","12","13","14"]
                   .map<DropdownMenuItem<String>>((String value) {
@@ -104,13 +115,22 @@ class _HomeWebPageState extends State<HomeWebPage> {
                   child: Text(value),
                 );
               }).toList(),
-            ),            
+            ),
+                       
             RaisedButton(
-              child: Text('CHAMAR'),
+              child: Text(
+                'CHAMAR', 
+                style: TextStyle(
+                  fontSize: 19
+                ),
+              ),  
+              color: Colors.white,               
               onPressed: (){
-                socket.emit('greeting', {"triagem": dropdownValue, "status": "livre"});
+                print('teste');
+                //socket.emit('greeting', {"triagem": dropdownValue, "status": "livre"});
               },
             ),
+            
           ],
         ),
       ),
