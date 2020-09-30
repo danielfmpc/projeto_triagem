@@ -36,7 +36,7 @@ dependencies:
       url: https://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
   flutter_audio_desktop: ^0.0.6
-  
+  universal_html: ^1.2.3
 
 dev_dependencies:
   flutter_test:
