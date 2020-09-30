@@ -1,17 +1,17 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
+
+import 'package:universal_html/html.dart' as html;
 
 class CookieManager {
 
   static addToCookie(String key, String value) {
      // 2592000 sec = 30 days.
      //  max-age=2592000;
-     document.cookie = "$key=$value; path=/;";
+     html.document.cookie = "$key=$value; path=/;";
   }
 
   static String getCookie(String key) {
 
-    String cookies = document.cookie;
+    String cookies = html.document.cookie;
     List<String> listValues = cookies.isNotEmpty ? cookies.split(";") : List();
     String matchVal = "";
     for (int i = 0; i < listValues.length; i++) {
