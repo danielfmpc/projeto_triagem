@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:frontend/app/modules/home/web/cookie_manager.dart';
@@ -20,11 +18,10 @@ class _HomeWebPageState extends State<HomeWebPage> {
       dropdownValue = "01";
     } else {
       dropdownValue = CookieManager.getCookie('triagem');
-
     }
     
     // Dart client
-    socket = IO.io('http://192.168.50.237:3000', <String, dynamic>{
+    socket = IO.io('http://192.168.50.7:3000', <String, dynamic>{
       'transports': ['websocket'],
     });  
           
@@ -84,8 +81,7 @@ class _HomeWebPageState extends State<HomeWebPage> {
                 fontSize: 30,
                 color: Colors.white
               ),
-            ),
-            
+            ),           
             DropdownButton<String>(              
               value: dropdownValue,
               dropdownColor: Colors.black,
@@ -115,8 +111,7 @@ class _HomeWebPageState extends State<HomeWebPage> {
                   child: Text(value),
                 );
               }).toList(),
-            ),
-                       
+            ),                       
             RaisedButton(
               child: Text(
                 'CHAMAR', 
@@ -126,8 +121,12 @@ class _HomeWebPageState extends State<HomeWebPage> {
               ),  
               color: Colors.white,               
               onPressed: (){
-                print('teste');
-                //socket.emit('greeting', {"triagem": dropdownValue, "status": "livre"});
+                int dropdownValueParse = int.parse(dropdownValue);
+                if(dropdownValueParse <= 7){
+                  socket.emit('greeting', {"triagem": dropdownValue, "status": "livre"});
+                } else {
+                  socket.emit('greetingTwo', {"triagem": dropdownValue, "status": "livre"});
+                }
               },
             ),
             
