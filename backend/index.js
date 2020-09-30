@@ -10,14 +10,11 @@ io.on('connection', (socket)=>{
     });
 });
 
-// io.on('connection', (socket)=>{
-//   socket.on('greeting', (msg) =>{
-//     socket.broadcast.emit('greeting',{msg:'welcome: ', user: "user_" + socket.id})
-
-//     io.emit('greeting',{msg:'welcome: ', user: "user_" + socket.id});
-//   });
-// });
-
+io.on('connection', (socket)=>{
+  socket.on('greetingTwo', (msg) =>{
+    io.emit('greetingTwo',msg);
+  });
+});
 
 http.listen(port, ()=>{
   console.log('listen on *: ' + port);
