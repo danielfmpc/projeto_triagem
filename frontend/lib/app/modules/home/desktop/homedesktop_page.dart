@@ -29,7 +29,7 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
       'transports': ['websocket'],
     });
     print("[webscoket][recebendo data]");
-    socket.on('greeting2', (data) {
+    socket.on('greetingTwo', (data) {
       setState(() {
         _triagem = data['triagem'];
         _status = data['status'];

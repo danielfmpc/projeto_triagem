@@ -21,7 +21,7 @@ class _HomeWebPageState extends State<HomeWebPage> {
     }
     
     // Dart client
-    socket = IO.io('http://192.168.50.7:3000', <String, dynamic>{
+    socket = IO.io('http://192.168.20.7:3000', <String, dynamic>{
       'transports': ['websocket'],
     });  
           
