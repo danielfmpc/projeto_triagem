@@ -4,10 +4,6 @@ import 'package:get/get.dart';
 
 class UserController extends GetxController {
 
-  final _obj = ''.obs;
-  set obj(value) => this._obj.value = value;
-  get obj => this._obj.value;
-
   final RxBool _loading = true.obs;
   get loading => this._loading.value;
   set loading(value) => this._loading.value = value;

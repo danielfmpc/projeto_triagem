@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:frontend/app/modules/home/web/cookie_manager.dart';
+import 'package:get_ip/get_ip.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:universal_html/html.dart';
 
@@ -13,6 +14,13 @@ class _HomeWebPageState extends State<HomeWebPage> {
   IO.Socket socket;
   String dropdownValue = "01";
   String test = '';
+  String ipAddress = '';
+  _onLoginButtonPressed() async {
+    
+    ipAddress = await GetIp.ipAddress;
+    
+    print(ipAddress); //192.168.232.2
+  }
   
 
   @override
@@ -22,9 +30,11 @@ class _HomeWebPageState extends State<HomeWebPage> {
     } else {
       dropdownValue = CookieManager.getCookie('triagem');
     }
+    _onLoginButtonPressed();
+    
     
     // Dart client
-    socket = IO.io('http://localhost:3000/screening', <String, dynamic>{
+    socket = IO.io('http://localhost:3000/', <String, dynamic>{
       'transports': ['websocket'],
     });
 
@@ -121,7 +131,8 @@ class _HomeWebPageState extends State<HomeWebPage> {
                   child: Text(value),
                 );
               }).toList(),
-            ),                       
+            ),
+            Text(ipAddress, style: TextStyle(color: Colors.white),),
             RaisedButton(
               child: Text(
                 'CHAMAR', 
@@ -131,9 +142,10 @@ class _HomeWebPageState extends State<HomeWebPage> {
               ),  
               color: Colors.white,               
               onPressed: (){
+                _onLoginButtonPressed();
                 // int dropdownValueParse = int.parse(dropdownValue);
                 // if(dropdownValueParse <= 7){
-                  socket.emit('greeting', {"triagem": dropdownValue, "status": "livre"});
+                  //socket.emit('greeting', {"triagem": dropdownValue, "status": "livre"});
                 // } else {
                 //   socket.emit('greetingTwo', {"triagem": dropdownValue, "status": "livre"});
                 // }

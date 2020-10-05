@@ -38,6 +38,7 @@ dependencies:
   flutter_audio_desktop: ^0.0.6
   universal_html: ^1.2.3
   dio: ^3.0.10
+  get_ip: ^0.4.0
 
 dev_dependencies:
   flutter_test:
