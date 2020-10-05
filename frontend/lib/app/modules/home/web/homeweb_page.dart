@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:frontend/app/modules/home/web/cookie_manager.dart';
@@ -21,9 +23,15 @@ class _HomeWebPageState extends State<HomeWebPage> {
     }
     
     // Dart client
-    socket = IO.io('http://192.168.20.7:3000', <String, dynamic>{
+    socket = IO.io('http://localhost:3000/usuarios', <String, dynamic>{
       'transports': ['websocket'],
     });  
+    socket.on('greeting', (data) {
+      setState(() {
+       print(data['triagem']);
+      });
+    });
+
           
     socket.connect();
     super.initState();
@@ -121,12 +129,12 @@ class _HomeWebPageState extends State<HomeWebPage> {
               ),  
               color: Colors.white,               
               onPressed: (){
-                int dropdownValueParse = int.parse(dropdownValue);
-                if(dropdownValueParse <= 7){
+                // int dropdownValueParse = int.parse(dropdownValue);
+                // if(dropdownValueParse <= 7){
                   socket.emit('greeting', {"triagem": dropdownValue, "status": "livre"});
-                } else {
-                  socket.emit('greetingTwo', {"triagem": dropdownValue, "status": "livre"});
-                }
+                // } else {
+                //   socket.emit('greetingTwo', {"triagem": dropdownValue, "status": "livre"});
+                // }
               },
             ),
             
