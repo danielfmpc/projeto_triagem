@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:frontend/app/modules/home/web/cookie_manager.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:universal_html/html.dart';
 
 class HomeWebPage extends StatefulWidget {
   @override
@@ -13,6 +12,8 @@ class HomeWebPage extends StatefulWidget {
 class _HomeWebPageState extends State<HomeWebPage> {
   IO.Socket socket;
   String dropdownValue = "01";
+  String test = '';
+  
 
   @override
   void initState() {
@@ -23,16 +24,17 @@ class _HomeWebPageState extends State<HomeWebPage> {
     }
     
     // Dart client
-    socket = IO.io('http://localhost:3000/usuarios', <String, dynamic>{
+    socket = IO.io('http://localhost:3000/screening', <String, dynamic>{
       'transports': ['websocket'],
-    });  
-    socket.on('greeting', (data) {
-      setState(() {
-       print(data['triagem']);
-      });
     });
 
-          
+    socket.on('greeting', (data) {
+      setState(() {
+        print(data);
+      });
+    });
+    
+     
     socket.connect();
     super.initState();
   } 
@@ -84,7 +86,7 @@ class _HomeWebPageState extends State<HomeWebPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'SELECIONE O TERMINAL',
+              test,
               style: TextStyle(
                 fontSize: 30,
                 color: Colors.white
