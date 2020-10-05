@@ -2,14 +2,14 @@ import 'package:frontend/app/data/models/screening_model.dart';
 import 'package:dio/dio.dart';
 import 'package:frontend/app/utils/const_utils.dart';
 
-class UserService{
-  UserService._internal();
-  static UserService _instance = UserService._internal();
-  static UserService get instance => _instance;
+class ScreeningService{
+  ScreeningService._internal();
+  static ScreeningService _instance = ScreeningService._internal();
+  static ScreeningService get instance => _instance;
 
   final dio = Dio();
 
-  Future<List<ScreeningModel>> getUsers() async {
+  Future<List<ScreeningModel>> getScreenings() async {
     try {
       final Response response = await dio.get(ConstUtils.BASE_URL_WS +'/screenings');
       // print(response.data);
