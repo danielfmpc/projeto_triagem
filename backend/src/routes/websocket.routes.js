@@ -6,11 +6,11 @@ testeRouter.get('/', (request, response)=>{
   console.log(io);
   const socket_id = [];
     // socket_id.push(socket.id);
-    //     // if (socket_id[0] === socket.id) {
-    //     //   // remove the connection listener for any subsequent 
-    //     //   // connections with the same ID
-    //     //   io.removeAllListeners('connection'); 
-    //     // } 
+        // if (socket_id[0] === socket.id) {
+        //   // remove the connection listener for any subsequent 
+        //   // connections with the same ID
+        //   io.removeAllListeners('connection'); 
+        // } 
  
   io.on('connection', (socket)=>{
     socket.on('greeting', (msg) =>{
@@ -22,8 +22,5 @@ testeRouter.get('/', (request, response)=>{
   return response.json({mg: "ok"});
 });
 
-testeRouter.post('/', (request, response)=>{
-  return response.send({msg:"ok"});
-});
 
 module.exports = testeRouter;

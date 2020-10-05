@@ -2,24 +2,18 @@ const Screening = require("../models/Screening");
 
 module.exports = {
   async index(request, response) {
+    //const io = request.app.get('socket.io');
+    // const nsp = io.of('/screenings');
+    // nsp.on('connection', (socket)=>{
+    //   socket.on('greeting', (msg) =>{
+    //     nsp.emit('greeting',msg);
+    //     console.log("user"+msg);
+    //   });
+    //   console.log(socket.id);
+    // });
     const screen = await Screening.findAll();
     return response.json(screen);
   },
-
-  // async index(request, response) {
-
-    
-  //   const screenings = await Screening.findAll();
-  //   // const io = request.app.get('socket.io');
-  //   // const nsp = io.of('/screening');
-  //   // nsp.on('connection', (socket)=>{
-  //   //   socket.on('greeting', (msg) =>{
-  //   //     nsp.emit('greeting',msg);
-  //   //     console.log("user"+msg);
-  //   //   });
-  //   // });
-  //   return response.json(screenings);
-  // },
 
   async store(request, response){
     const { screening, status, ip } = request.body;
