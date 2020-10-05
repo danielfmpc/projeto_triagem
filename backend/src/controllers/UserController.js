@@ -1,30 +1,9 @@
-var express = require('express');
-
 const User = require("../models/User");
 
 module.exports = {
   async index(request, response) {
-    var io = request.app.get('socket.io');
-    io.on('connection', (socket) => {
-      
-      socket.on('greeting', (msg) => {
-        io.emit('greeting', msg);
-      });
-      console.log(socket.id);
-    });
-    // io.on('connection', (socket)=>{
-    //   socket.on('greeting', (msg) =>{
-    //     io.emit('greeting', msg);
-    //   });
-    //   console.log(socket);
-    //   console.log(socket.id);
-
-    // });
-
     const user = await User.findAll();
     return response.json(user);
-    
-    
   },
 
   async store(request, response){

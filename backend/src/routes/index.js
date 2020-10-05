@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var usuariosRouter = require('./usuarios.routes');
-var triagensRouter = require('./triagens.routes');
+const usersRouter = require('./users.routes');
+const screeningsRouter = require('./screenings.routes');
+const testeRouter = require('./teste.routes');
 
-
-router.use('/usuarios', usuariosRouter);
-router.use('/triagens', triagensRouter);
+router.use('/', testeRouter);
+router.use('/users', usersRouter);
+router.use('/screenings', screeningsRouter);
 
 module.exports = router;

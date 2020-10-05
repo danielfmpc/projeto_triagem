@@ -6,18 +6,19 @@
   <script src="http://localhost:3000/socket.io/socket.io.js"></script>
   <title>Triagem</title>
 </head>
-<div class="userlist">
-  <ul id="users">
-  </ul>
-</div>
 <body>
+  <div class="userlist">
+    <ul id="users">
+    </ul>
+  </div>
+
   <script>
-    const socket = io('http://localhost:3000/usuarios');
+    const socket = io('http://localhost:3000/');
     socket.on('greeting', (data)=>{
-      console.log(data);
+      console.log(data['sid']);
       // var node = document.creatrs").appendChild(node);
       var user = document.createElement('li');
-      var psn = data.msg + data.user;   
+      var psn = data.sid;   
       var textnode = document.createTextNode(psn);
       user.appendChild(textnode);
       document.getElementById('users').appendChild(user);
